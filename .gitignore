@@ -1,0 +1,27 @@
+# virtual environment
+venv/
+env/
+.venv/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Environment variables
+.env
