@@ -2,9 +2,9 @@
   <div class="min-h-screen" :class="isDarkMode ? 'bg-gray-900' : 'bg-white'">
     <!-- Header with Theme Toggle -->
     <div class="w-full border-b" :class="isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
-      <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="max-w-4xl mx-auto px-6 py-2 flex items-center justify-between">
         <div>
-          <h1 class="text-xl font-bold" :class="isDarkMode ? 'text-white' : 'text-gray-900'">Interview Gen</h1>
+          <h1 class="text-sm font-bold" :class="isDarkMode ? 'text-white' : 'text-gray-900'">IQG</h1>
         </div>
         <button
           @click="toggleTheme"
