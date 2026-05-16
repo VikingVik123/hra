@@ -17,13 +17,13 @@ service = RecommendationService()
     response_model=RecommendationResponse,
     status_code=status.HTTP_200_OK,
     summary="Get interview questions",
-    description="Generate AI-powered interview questions for a given job title",
+    description="Generate AI-powered interview questions for a given job title using specified model",
 )
 async def get_recommendations(request: RecommendationRequest) -> RecommendationResponse:
     """Get interview recommendations for a job title.
 
     Args:
-        request: Request containing the job title
+        request: Request containing the job title and model choice
 
     Returns:
         RecommendationResponse: List of interview questions
@@ -31,10 +31,10 @@ async def get_recommendations(request: RecommendationRequest) -> RecommendationR
     Raises:
         HTTPException: 400 if input is invalid, 500 if AI generation fails
     """
-    logger.info(f"Recommendation request for job title: {request.job_title}")
+    logger.info(f"Recommendation request for job title: {request.job_title} using model: {request.model}")
 
     try:
-        questions_list = service.fetch_recs(request.job_title)
+        questions_list = service.fetch_recs(request.job_title, model=request.model)
         logger.info(f"Successfully returned {len(questions_list)} recommendations")
         return RecommendationResponse(questions=questions_list)
 
