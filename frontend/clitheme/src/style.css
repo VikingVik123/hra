@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-black text-green-400 font-mono;
+  font-family: 'Courier New', 'Lucida Console', monospace;
+}
+
+/* Light mode */
+html.light-mode {
+  @apply bg-gray-100;
+}
+
+html.light-mode body {
+  @apply bg-gray-100 text-gray-900;
+}
+
+input, select, textarea {
+  @apply transition-colors duration-200;
+  font-family: 'Courier New', 'Lucida Console', monospace;
+}
+
+input:focus, select:focus, textarea:focus {
+  @apply outline-none;
+}
+
+/* Terminal scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #22c55e;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #16a34a;
+}
+
+html.light-mode ::-webkit-scrollbar-track {
+  background: #e5e7eb;
+}
+
+html.light-mode ::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 4px;
+}
+
+html.light-mode ::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+

@@ -47,7 +47,7 @@ class RecommendationService:
         "key 'questions' containing a list of strings."
     )
     GEMINI_MODEL = "gemini-2.5-flash"
-    GROQ_MODEL = "llama-3.3-70b-versatile"
+    GROQ_MODEL = "llama-3.1-8b-instant"
 
     def __init__(self):
         """Initialize the recommendation service."""

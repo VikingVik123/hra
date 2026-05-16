@@ -25,3 +25,14 @@ dist/
 
 # Environment variables
 .env
+
+# node_modules and build artifacts
+node_modules/
+dist/
+dist-ssr/
+
+# Package lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+lerna-debug.log*
