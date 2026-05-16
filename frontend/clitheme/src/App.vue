@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-screen font-mono" :class="isDarkMode ? 'bg-black text-green-400' : 'bg-gray-100 text-gray-900'" style="font-family: 'Courier New', monospace;">
     <!-- Terminal Header -->
-    <div class="border-b px-6 py-4" :class="isDarkMode ? 'bg-gray-800 border-green-900' : 'bg-gray-300 border-gray-400'">
+    <div class="border-b px-3 sm:px-6 py-2 sm:py-4" :class="isDarkMode ? 'bg-gray-800 border-green-900' : 'bg-gray-300 border-gray-400'">
       <div class="flex justify-between items-center">
-        <h1 class="text-lg font-bold">$ INTERVIEW-GEN v1.0</h1>
+        <h1 class="text-xs sm:text-sm md:text-lg font-bold">$ INTERVIEW-GEN v1.0</h1>
         <button @click="toggleTheme" class="text-xs px-2 py-1 rounded transition-colors" :class="isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-400 hover:bg-gray-500'">
           {{ isDarkMode ? '☀' : '🌙' }}
         </button>
@@ -11,16 +11,16 @@
     </div>
 
     <!-- Terminal Content -->
-    <div class="min-h-[calc(100vh-80px)] flex flex-col p-6">
+    <div class="min-h-[calc(100vh-60px)] sm:min-h-[calc(100vh-80px)] flex flex-col p-3 sm:p-6">
       <div class="flex-1 space-y-4 max-w-4xl">
         <!-- Welcome Message -->
-        <div v-if="!jobTitle && !loading" class="space-y-2">
+        <div v-if="!jobTitle && !loading" class="space-y-1 sm:space-y-2 text-xs sm:text-sm">
           <p>Welcome to Interview Questions Generator</p>
           <p :class="isDarkMode ? 'text-green-500' : 'text-gray-600'">Enter a job title to generate interview questions</p>
         </div>
 
         <!-- Job Title Input -->
-        <div class="space-y-2">
+        <div class="space-y-1 sm:space-y-2 text-xs sm:text-sm">
           <p :class="isDarkMode ? 'text-green-300' : 'text-gray-700'">$ job title</p>
           <div class="flex gap-2">
             <span :class="isDarkMode ? 'text-green-400' : 'text-gray-800'">&gt;</span>
@@ -37,14 +37,14 @@
         </div>
 
         <!-- Model Selection Button (shows after job title entered) -->
-        <div v-if="jobTitle.trim()" class="space-y-2">
+        <div v-if="jobTitle.trim()" class="space-y-1 sm:space-y-2 text-xs sm:text-sm">
           <p :class="isDarkMode ? 'text-green-300' : 'text-gray-700'">$ model</p>
           <div class="flex gap-2">
             <span :class="isDarkMode ? 'text-green-400' : 'text-gray-800'">&gt;</span>
             <button
               @click="showModelModal = true"
               :disabled="loading"
-              class="text-left flex-1 px-3 py-1 rounded transition-colors"
+              class="text-left flex-1 px-2 sm:px-3 py-1 rounded transition-colors"
               :class="isDarkMode ? 'bg-gray-800 text-green-400 hover:bg-gray-700' : 'bg-gray-300 text-gray-800 hover:bg-gray-400'"
             >
               {{ selectedModel }}
@@ -53,7 +53,7 @@
         </div>
 
         <!-- Generate Button -->
-        <div v-if="jobTitle.trim()" class="space-y-2">
+        <div v-if="jobTitle.trim()" class="space-y-1 sm:space-y-2 text-xs sm:text-sm">
           <p :class="isDarkMode ? 'text-green-300' : 'text-gray-700'">$</p>
           <button
             @click="generateQuestions"
@@ -72,51 +72,51 @@
         </div>
 
         <!-- Loading State -->
-        <div v-if="loading" class="space-y-2 mt-6" :class="isDarkMode ? 'text-green-500' : 'text-gray-600'">
+        <div v-if="loading" class="space-y-1 sm:space-y-2 mt-4 sm:mt-6 text-xs sm:text-sm" :class="isDarkMode ? 'text-green-500' : 'text-gray-600'">
           <p>⟳ generating questions...</p>
           <p class="animate-pulse">waiting for API response...</p>
         </div>
 
         <!-- Error Display -->
-        <div v-if="error" class="border p-4 mt-6" :class="isDarkMode ? 'border-red-600 text-red-500' : 'border-red-400 text-red-600'">
+        <div v-if="error" class="border p-3 sm:p-4 mt-4 sm:mt-6 text-xs sm:text-sm" :class="isDarkMode ? 'border-red-600 text-red-500' : 'border-red-400 text-red-600'">
           <p>ERROR: {{ error }}</p>
         </div>
 
         <!-- Results Display -->
-        <div v-if="questions.length > 0 && !loading" class="mt-8 space-y-4">
+        <div v-if="questions.length > 0 && !loading" class="mt-6 sm:mt-8 space-y-3 sm:space-y-4 text-xs sm:text-sm">
           <div :class="isDarkMode ? 'text-green-300' : 'text-gray-700'">
             <p>Questions for: <span :class="isDarkMode ? 'text-cyan-400' : 'text-blue-700'" class="font-bold">{{ jobTitle }}</span></p>
-            <p :class="isDarkMode ? 'text-green-500' : 'text-gray-600'" class="text-sm">Model: {{ selectedModel }}</p>
+            <p :class="isDarkMode ? 'text-green-500' : 'text-gray-600'" class="text-xs">Model: {{ selectedModel }}</p>
           </div>
 
-          <div class="border p-4 space-y-4" :class="isDarkMode ? 'border-green-600' : 'border-gray-400'">
+          <div class="border p-3 sm:p-4 space-y-3 sm:space-y-4" :class="isDarkMode ? 'border-green-600' : 'border-gray-400'">
             <div
               v-for="(question, index) in questions"
               :key="index"
-              class="border-l-2 pl-4"
+              class="border-l-2 pl-2 sm:pl-4"
               :class="isDarkMode ? 'border-green-600' : 'border-gray-400'"
             >
               <div class="font-bold" :class="isDarkMode ? 'text-green-400' : 'text-gray-800'">
                 Q{{ index + 1 }}: <span :class="isDarkMode ? 'text-cyan-300' : 'text-blue-600'">{{ question.text || question }}</span>
               </div>
-              <div class="text-sm mt-1" :class="isDarkMode ? 'text-green-600' : 'text-gray-600'">
+              <div class="text-xs mt-1" :class="isDarkMode ? 'text-green-600' : 'text-gray-600'">
                 Category: <span :class="isDarkMode ? 'text-green-500' : 'text-gray-700'">{{ question.category }}</span>
               </div>
             </div>
           </div>
 
           <!-- Action Buttons -->
-          <div class="mt-6 space-y-2">
+          <div class="mt-4 sm:mt-6 space-y-1 sm:space-y-2">
             <button
               @click="copyQuestions"
-              class="transition-colors"
+              class="transition-colors block"
               :class="isDarkMode ? 'text-green-400 hover:text-green-300' : 'text-gray-800 hover:text-gray-600'"
             >
               $ <span class="underline">copy</span> - Copy to clipboard
             </button>
             <button
               @click="reset"
-              class="transition-colors"
+              class="transition-colors block"
               :class="isDarkMode ? 'text-green-400 hover:text-green-300' : 'text-gray-800 hover:text-gray-600'"
             >
               $ <span class="underline">reset</span> - Start over
@@ -127,16 +127,16 @@
     </div>
 
     <!-- Model Selection Modal -->
-    <div v-if="showModelModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-      <div class="rounded-lg p-6 max-w-sm w-full mx-4 border-2" :class="isDarkMode ? 'bg-gray-900 border-green-600' : 'bg-gray-50 border-gray-400'">
-        <p class="font-bold mb-4" :class="isDarkMode ? 'text-green-400' : 'text-gray-900'">Select Model:</p>
+    <div v-if="showModelModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+      <div class="rounded-lg p-4 sm:p-6 max-w-sm w-full border-2" :class="isDarkMode ? 'bg-gray-900 border-green-600' : 'bg-gray-50 border-gray-400'">
+        <p class="font-bold mb-3 sm:mb-4 text-sm sm:text-base" :class="isDarkMode ? 'text-green-400' : 'text-gray-900'">Select Model:</p>
         
-        <div class="space-y-3 mb-6">
+        <div class="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
           <button
             v-for="model in ['gemini', 'groq']"
             :key="model"
             @click="selectModel(model)"
-            class="w-full p-3 rounded border-2 text-left capitalize font-semibold transition-all"
+            class="w-full p-2 sm:p-3 rounded border-2 text-left capitalize font-semibold transition-all text-sm"
             :class="[
               selectedModel === model
                 ? isDarkMode ? 'border-cyan-400 bg-gray-800 text-cyan-400' : 'border-blue-600 bg-blue-50 text-blue-900'
@@ -150,7 +150,7 @@
 
         <button
           @click="showModelModal = false"
-          class="w-full px-4 py-2 rounded font-semibold transition-colors"
+          class="w-full px-3 sm:px-4 py-2 rounded font-semibold transition-colors text-sm"
           :class="isDarkMode ? 'bg-gray-800 hover:bg-gray-700 text-green-400 border border-green-600' : 'bg-gray-300 hover:bg-gray-400 text-gray-900'"
         >
           Done
@@ -171,7 +171,7 @@ const error = ref('')
 const isDarkMode = ref(true)
 const showModelModal = ref(false)
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://hra-be.vercel.app'
 
 console.log('🌐 API_BASE_URL:', API_BASE_URL)
 
